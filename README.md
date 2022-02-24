@@ -10,10 +10,10 @@
 <h4>Commands</h4>
 
 1. ks - create new database with first free name
-  <p>flags:</p>
+  flags:
     1. -f _file_ - (-file) create database with name _file_
     2. -a _algorithm_ - (-alg) create new database with algorithm
-      <p>Values:</p>
+      Values:
         1. AES 
     3. -h _hashfunction_ - (-hash) create new database with _hashfunction_ 
                             for creating key
@@ -37,9 +37,9 @@
   ```
 
 2. ks _file_ - open data base with name _file_
-  <p>Must be one of flags:</p>
+  Must be one of flags:
     1. -add _resourcename_ - add new resource named _resourcename_
-      <p>Flags:</p>
+      Flags:
         1. -t _type_ - (-type) add type of resource (default: size)
           Values:
             1. site (two fields)
@@ -65,7 +65,7 @@
       ```
 
     3. -get _resourcename_
-      <p>For different resource types different meaning:</p>
+      For different resource types different meaning:
         1. Site:
           Display login and copy in clipboard password.
         2. Note
@@ -97,11 +97,11 @@
 
 1. 8 bytes - algorithm (AESECB\0\0 - AES ECB)
 2. algorithm info (unknown count of bytes)
-  <p>For AES it's:</p>
+  For AES it's:
     - 2 bytes - key size
 3. 8 bytes - hash algorithm (PHSHA512 - PBKDF2 HMAC SHA512)
 4. hash algorithm info (unknown count of bytes)
-  <p>For PBKDF2 HMAC SHA512 it's:</p>
+  For PBKDF2 HMAC SHA512 it's:
     - 4 bytes - iterations
     - 2 bytes - salt size
     - salt size bytes - salt
@@ -114,7 +114,7 @@
 - 1 byte - type
 - 2 bytes - resource name size
 - resource name size bytes - resource name
-<p>There are 3 types of info:</p>
+There are 3 types of info:
   1. Site (type = 1)
     - 2 bytes - login size
     - login size bytes - login
