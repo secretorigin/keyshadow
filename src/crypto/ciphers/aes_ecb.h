@@ -17,7 +17,7 @@
 
 
 
-class AES_ECB : public cipher {
+class aes_ecb : public cipher {
 public:
   const char* get_name();
 
@@ -28,6 +28,8 @@ public:
   char* decrypt(char* data, uint64_t data_size, uint8_t* key, uint16_t key_size);
 
   uint64_t header_size();
+
+  uint16_t key_size();
 
   void write(char* begin);
 

@@ -20,7 +20,8 @@
       Values:
         1. SHA512
         2. SHA256
-  Errors:
+  
+  <p>Errors:</p>
     1. Invalid command:
       1. invalid syntax
       2. invalid flag
@@ -96,11 +97,11 @@
 <h4>Header structure:</h4>
 
 1. 8 bytes - algorithm (AESECB\0\0 - AES ECB)
-2. algorithm info (unknown count of bytes)
+2. algorithm info (unknown count of bytes):
   For AES it's:
     - 2 bytes - key size
 3. 8 bytes - hash algorithm (PHSHA512 - PBKDF2 HMAC SHA512)
-4. hash algorithm info (unknown count of bytes)
+4. hash algorithm info (unknown count of bytes):
   For PBKDF2 HMAC SHA512 it's:
     - 4 bytes - iterations
     - 2 bytes - salt size
@@ -114,7 +115,7 @@
 - 1 byte - type
 - 2 bytes - resource name size
 - resource name size bytes - resource name
-There are 3 types of info:
+- There are 3 types of info:
   1. Site (type = 1)
     - 2 bytes - login size
     - login size bytes - login

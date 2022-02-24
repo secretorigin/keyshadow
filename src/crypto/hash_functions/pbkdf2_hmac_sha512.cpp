@@ -9,7 +9,7 @@
 
 
 const char* get_name() {
-  return PBKDF2_HMAC_SH512_STD;
+  return PBKDF2_HMAC_SHA512_STD;
 }
 
 
@@ -61,8 +61,6 @@ uint64_t pbkdf2_hmac_sha512::header_size() {
 
 void pbkdf2_hmac_sha512::read(char* begin) {
   uint64_t padding = 0;
-  memcpy(begin, PBKDF2_HMAC_SH512_STD, HASH_FUNCTION_STD_SIZE);
-  padding += HASH_FUNCTION_STD_SIZE;
   memcpy(begin + padding, &(this->iterations_), sizeof(this->iterations_));
   padding += sizeof(this->iterations_);
   memcpy(begin + padding, &(this->salt_size_), sizeof(this->salt_size_));
@@ -79,4 +77,10 @@ void pbkdf2_hmac_sha512::write(char* begin) {
   memcpy(&(this->salt_size_), begin + padding, sizeof(this->salt_size_));
   padding += sizeof(this->salt_size_);
   memcpy(this->salt_, begin + padding, this->salt_size_);
+}
+
+
+
+pbkdf2_hmac_sha512::~pbkdf2_hmac_sha512() {
+  delete[] this->salt_;
 }

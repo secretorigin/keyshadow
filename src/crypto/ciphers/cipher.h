@@ -21,6 +21,8 @@ public:
 
   virtual uint64_t header_size() = 0;
 
+  virtual uint16_t key_size() = 0;
+
   virtual void read(char* begin) = 0;
 
   virtual void write(char* begin) = 0;

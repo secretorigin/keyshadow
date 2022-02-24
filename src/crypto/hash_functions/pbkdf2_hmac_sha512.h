@@ -7,7 +7,7 @@
 
 #include "hash_function.h"
 
-#define PBKDF2_HMAC_SH512_STD "PHSHA512"
+#define PBKDF2_HMAC_SHA512_STD "PHSHA512"
 
 
 
@@ -24,6 +24,8 @@ public:
   void read(char* begin);
 
   void write(char* begin);
+
+  ~pbkdf2_hmac_sha512();
 
 private:
   uint16_t iterations_;
