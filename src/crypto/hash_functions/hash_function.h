@@ -17,9 +17,11 @@ public:
 
   virtual uint8_t* hash(char* password, uint16_t password_size, uint16_t key_size) = 0;
 
-  virtual uint64_t read(char* begin) = 0;
+  virtual uint64_t header_size() = 0;
 
-  virtual uint64_t write(char* begin) = 0;
+  virtual void read(char* begin) = 0;
+
+  virtual void write(char* begin) = 0;
 };
 
 

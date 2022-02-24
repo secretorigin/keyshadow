@@ -13,6 +13,7 @@
 
 #define AES_ECB_STD "AESECB\0\0"
 
+#define AES_ECB_HEADER_SIZE 2
 
 
 
@@ -26,9 +27,11 @@ public:
 
   char* decrypt(char* data, uint64_t data_size, uint8_t* key, uint16_t key_size);
 
-  uint64_t write(char* begin);
+  uint64_t header_size();
 
-  uint64_t read(char* begin);
+  void write(char* begin);
+
+  void read(char* begin);
 
 private:
   uint16_t key_length_;

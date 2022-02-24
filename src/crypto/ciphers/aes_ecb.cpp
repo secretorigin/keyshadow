@@ -66,20 +66,21 @@ char* AES_ECB::decrypt(char* data, uint64_t data_size, uint8_t* key, uint16_t ke
 
 
 
-uint64_t AES_ECB::write(char* begin) {
-  uint64_t padding = 0;
-  memcpy(begin, AES_ECB_STD, CIPHER_STD_SIZE);
-  padding += CIPHER_STD_SIZE;
-  memcpy(begin + padding, &(this->key_length_), sizeof(this->key_length_));
-  padding += sizeof(this->key_length_);
-
-  return padding;
+uint64_t AES_ECB::header_size() {
+  return AES_ECB_HEADER_SIZE;
 }
 
 
 
-uint64_t AES_ECB::read(char* begin) {
+void AES_ECB::write(char* begin) {
+  uint64_t padding = 0;
+  memcpy(begin, AES_ECB_STD, CIPHER_STD_SIZE);
+  padding += CIPHER_STD_SIZE;
+  memcpy(begin + padding, &(this->key_length_), sizeof(this->key_length_));
+}
+
+
+
+void AES_ECB::read(char* begin) {
   memcpy(&(this->key_length_), begin, sizeof(this->key_length_));
-  
-  return sizeof(this->key_length_);
 }

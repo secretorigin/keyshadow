@@ -19,9 +19,11 @@ public:
 
   virtual char* decrypt(char* data, uint64_t data_size, uint8_t* key, uint16_t key_size) = 0;
 
-  virtual uint64_t read(char* begin) = 0;
+  virtual uint64_t header_size() = 0;
 
-  virtual uint64_t write(char* begin) = 0;
+  virtual void read(char* begin) = 0;
+
+  virtual void write(char* begin) = 0;
 };
 
 

@@ -10,10 +10,10 @@
 <h4>Commands</h4>
 
 1. ks - create new database with first free name
-  flags:
+  <p>flags:</p>
     1. -f _file_ - (-file) create database with name _file_
     2. -a _algorithm_ - (-alg) create new database with algorithm
-      Values:
+      <p>Values:</p>
         1. AES 
     3. -h _hashfunction_ - (-hash) create new database with _hashfunction_ 
                             for creating key
@@ -37,9 +37,9 @@
   ```
 
 2. ks _file_ - open data base with name _file_
-  Must be one of flags:
+  <p>Must be one of flags:</p>
     1. -add _resourcename_ - add new resource named _resourcename_
-      Flags:
+      <p>Flags:</p>
         1. -t _type_ - (-type) add type of resource (default: size)
           Values:
             1. site (two fields)
@@ -65,7 +65,7 @@
       ```
 
     3. -get _resourcename_
-      For different resource types different meaning:
+      <p>For different resource types different meaning:</p>
         1. Site:
           Display login and copy in clipboard password.
         2. Note
@@ -97,17 +97,32 @@
 
 1. 8 bytes - algorithm (AESECB\0\0 - AES ECB)
 2. algorithm info (unknown count of bytes)
-  For AES it's:
-    2 bytes - key size
+  <p>For AES it's:</p>
+    - 2 bytes - key size
 3. 8 bytes - hash algorithm (PHSHA512 - PBKDF2 HMAC SHA512)
 4. hash algorithm info (unknown count of bytes)
-  For PBKDF2 HMAC SHA512 it's:
-    4 bytes - iterations
-    2 bytes - salt size
-    salt size bytes - salt
+  <p>For PBKDF2 HMAC SHA512 it's:</p>
+    - 4 bytes - iterations
+    - 2 bytes - salt size
+    - salt size bytes - salt
 5. 8 bytes - data size (without encryption)
 6. 4 bytes - crc32 hash of data (for checking password)
 7. x bytes - encrypted data
 
 <h4>Database structure:</h4>
 
+- 1 byte - type
+- 2 bytes - resource name size
+- resource name size bytes - resource name
+<p>There are 3 types of info:</p>
+  1. Site (type = 1)
+    - 2 bytes - login size
+    - login size bytes - login
+    - 2 bytes - password size
+    - password size bytes - password
+  2. Note (type = 2)
+    - 2 bytes - note size
+    - note size bytes - note
+  3. File (type = 3)
+    - 2 bytes - file size
+    - file size bytes - file

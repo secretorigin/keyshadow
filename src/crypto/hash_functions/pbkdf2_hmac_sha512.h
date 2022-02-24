@@ -19,9 +19,11 @@ public:
 
   uint8_t* hash(char* password, uint16_t password_size, uint16_t key_size);
 
-  uint64_t read(char* begin);
+  uint64_t header_size();
 
-  uint64_t write(char* begin);
+  void read(char* begin);
+
+  void write(char* begin);
 
 private:
   uint16_t iterations_;
