@@ -13,10 +13,11 @@
 #include <fstream>
 #include <string>
 #include <cstring>
+#include <cstdint>
 
 
 
-struct parsed_header {
+struct parsed_encrypted_file {
   cipher* c;
   hash_function* hf;
   uint64_t data_size;
@@ -28,9 +29,9 @@ struct parsed_header {
 
 
 
-parsed_header read_header(char* buff, uint64_t buff_size);
+parsed_encrypted_file read_encrypted_file(char* buff, uint64_t buff_size);
 
-char* write_header(const parsed_header& h, size_t& buff_size);
+char* write_encrypted_file(const parsed_encrypted_file& h, size_t& buff_size);
 
 char* read_file(const std::string& path, size_t& data_size);
 

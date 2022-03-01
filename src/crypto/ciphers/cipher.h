@@ -15,9 +15,9 @@ public:
 
   virtual void set(std::istream& is, std::ostream& os) = 0;
 
-  virtual char* encrypt(char* data, uint64_t data_size, uint8_t* key, uint16_t key_size, uint64_t& enc_size) = 0;
+  virtual char* encrypt(const char* data, uint64_t data_size, const uint8_t* key, uint16_t key_size, uint64_t& enc_size) = 0;
 
-  virtual char* decrypt(char* data, uint64_t data_size, uint8_t* key, uint16_t key_size) = 0;
+  virtual char* decrypt(const char* data, uint64_t data_size, const uint8_t* key, uint16_t key_size) = 0;
 
   virtual uint64_t header_size() = 0;
 

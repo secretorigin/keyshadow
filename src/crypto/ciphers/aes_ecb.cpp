@@ -19,13 +19,13 @@ void aes_ecb::set(std::istream& is, std::ostream& os) {
 
 
 
-char* aes_ecb::encrypt(char* data, uint64_t data_size, uint8_t* key, uint16_t key_size, uint64_t& enc_size) {
+char* aes_ecb::encrypt(const char* data, uint64_t data_size, const uint8_t* key, uint16_t key_size, uint64_t& enc_size) {
   AES* aes;
   if (key_size == 32)
     aes = new AES(AESKeyLength::AES_256);
   else if (key_size == 24)
     aes = new AES(AESKeyLength::AES_192);
-  else if (key_size = 16)
+  else if (key_size == 16)
     aes = new AES(AESKeyLength::AES_128);
   else
     throw std::invalid_argument("Key size must be 128/192/256");
@@ -46,13 +46,13 @@ char* aes_ecb::encrypt(char* data, uint64_t data_size, uint8_t* key, uint16_t ke
 
 
 
-char* aes_ecb::decrypt(char* data, uint64_t data_size, uint8_t* key, uint16_t key_size) {
+char* aes_ecb::decrypt(const char* data, uint64_t data_size, const uint8_t* key, uint16_t key_size) {
   AES* aes;
   if (key_size == 32)
     aes = new AES(AESKeyLength::AES_256);
   else if (key_size == 24)
     aes = new AES(AESKeyLength::AES_192);
-  else if (key_size = 16)
+  else if (key_size == 16)
     aes = new AES(AESKeyLength::AES_128);
   else
     throw std::invalid_argument("Key size must be 128/192/256");

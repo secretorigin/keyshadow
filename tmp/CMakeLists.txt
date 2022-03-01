@@ -11,7 +11,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 project(KEY_SHADOW)
 
 # add your .cpp files here
-add_executable(test.out ../src/mainloop/main.cpp ../src/mainloop/command_processor.cpp
+add_executable(test.out ../src/tests/test_read_write.cpp
+                        #../src/mainloop/command_processor.cpp
                         ../src/mainloop/database/encrypted_file.cpp
                         ../src/crypto/ciphers/aes_ecb.cpp
                         ../src/crypto/core/aes.cpp

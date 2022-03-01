@@ -15,8 +15,8 @@
 
 
 
-parsed_header read_header(char* buff, uint64_t buff_size) {
-  parsed_header h;
+parsed_encrypted_file read_encrypted_file(char* buff, uint64_t buff_size) {
+  parsed_encrypted_file h;
   size_t padding = 0;
 
   char cipher_name[CIPHER_STD_SIZE];
@@ -58,7 +58,7 @@ parsed_header read_header(char* buff, uint64_t buff_size) {
 
 
 
-char* write_header(const parsed_header& h, size_t& buff_size) {
+char* write_encrypted_file(const parsed_encrypted_file& h, size_t& buff_size) {
   size_t padding = 0;
   
   buff_size = 28 + h.encrypted_data_size + h.c->header_size() + h.hf->header_size();

@@ -23,9 +23,9 @@ public:
 
   void set(std::istream& is, std::ostream& os);
 
-  char* encrypt(char* data, uint64_t data_size, uint8_t* key, uint16_t key_size, uint64_t& enc_size);
+  char* encrypt(const char* data, uint64_t data_size, const uint8_t* key, uint16_t key_size, uint64_t& enc_size);
 
-  char* decrypt(char* data, uint64_t data_size, uint8_t* key, uint16_t key_size);
+  char* decrypt(const char* data, uint64_t data_size, const uint8_t* key, uint16_t key_size);
 
   uint64_t header_size();
 
