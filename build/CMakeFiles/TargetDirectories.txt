@@ -1,0 +1,3 @@
+/Users/danilkandakov/Desktop/projects/keyshadow/build/CMakeFiles/rebuild_cache.dir
+/Users/danilkandakov/Desktop/projects/keyshadow/build/CMakeFiles/edit_cache.dir
+/Users/danilkandakov/Desktop/projects/keyshadow/build/CMakeFiles/test.out.dir
