@@ -12,8 +12,8 @@ project(KEYSHADOW)
 
 set(TEST_FILES ../tests/main.cpp)
 
-set(NOTEPROCESSOR_FILES ../src/noteprocessor/core/note/authenticationnote.cpp
-                        ../src/noteprocessor/core/notelist/authenticationnotelist.cpp)
+set(NOTEPROCESSOR_FILES ../src/noteprocessor/writable.cpp
+                        ../src/noteprocessor/writablearray.cpp)
 
 set(ENCPROCESSOR_FILES ../src/encprocessor/crypto/aes.cpp
                        ../src/encprocessor/core/encdata.cpp

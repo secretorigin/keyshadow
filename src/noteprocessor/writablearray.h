@@ -21,7 +21,7 @@
  * @class WritableArray
  * @brief abstarct class for array of writable data
  */
-class WritableArray : public Writable {
+class WritableArray : public Writable<WritableArray> {
 private:
   std::vector<Writable*> array;
 
@@ -29,15 +29,28 @@ protected:
   uint32_t writeData(uint8_t* buff);
   uint32_t readData(uint8_t* buff);
 
+  void copyData(const WritableArray& object);
+  void copyData(WritableArray&& object);
+
 public:
   WritableArray();
   WritableArray(std::string name);
 
-  void add(Writable* data);
+  // get pointer to the copy of this class
+  using Writable<WritableArray>::copy;
+  WritableArray* copy();
 
-  // virtual 
-  uint16_t getCode();
-  uint32_t getSize(); //<- full size of writed data
+  template<class WritableType>
+  void add(const WritableType& data);
+  template<class WritableType>
+  void add(WritableType&& data);
+
+  // get type/id/code of this object class
+  uint16_t code();
+  // get full size of writed data
+  uint32_t size();
+
+  ~WritableArray();
 
   /*
     There are a lot of methods which are not implemented here, but implenmented in writable class

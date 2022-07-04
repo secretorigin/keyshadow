@@ -4,3 +4,15 @@
 
 
 #include <iostream>
+#include "../src/noteprocessor/writable.h"
+#include "../src/noteprocessor/writablearray.h"
+
+
+
+void WritableArray_test() {
+  WritableArray a;
+
+  a.setName("superarray");
+  uint8_t* buff = new uint8_t[a.size()];
+  a.write(buff);
+}
