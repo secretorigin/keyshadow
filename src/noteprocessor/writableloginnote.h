@@ -3,12 +3,12 @@
 
 
 
-#ifndef NOTE_WRITABLEARRAY_H
-#define NOTE_WRITABLEARRAY_H
+#ifndef NOTE_WRITABLELOGINNOTE_H
+#define NOTE_WRITABLELOGINNOTE_H
 
 
 
-#include <vector>
+#include <string>
 #include "writable.h"
 
 
@@ -21,16 +21,18 @@
  *                          < Count >           |          < Objects >
  *                           2 bytes            |         unknown bytes
  */
-class WritableArray : public Writable {
+class WritableLoginNote : public Writable {
 protected:
-  std::vector<Writable*> array;
+  std::string login;
+  std::string password;
 
   uint32_t writeData(uint8_t* buff);
   uint32_t readData(uint8_t* buff);
 
 public:
-  WritableArray();
-  WritableArray(std::string name);
+  WritableLoginNote();
+  WritableLoginNote(std::string name);
+  WritableLoginNote(std::string name, std::string login, std::string password);
 
   uint16_t code(); // get type/id/code of this object class
   uint32_t size(); // get full size of writed data
@@ -39,12 +41,12 @@ public:
   using Writable::write;
   using Writable::read;
 
-  ~WritableArray();
+  ~WritableLoginNote();
 
-  // WritableArray methods
-  void add(Writable* object);
-  void remove(size_t index);
-  Writable* operator[] (size_t index);
+  void setLogin(std::string login);
+  void setPassword(std::string password);
+  std::string getLogin();
+  std::string getPassword();
 };
 
 

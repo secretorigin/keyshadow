@@ -18,5 +18,3 @@
 
 
 <h1>:flying_saucer: Problems</h1>
-
-- [Problem in templates](https://github.com/p2034/keyshadow/tree/main/src/noteprocessor/README.md)

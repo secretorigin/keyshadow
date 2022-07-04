@@ -7,18 +7,13 @@
 
 
 
-template<class Derived>
-Writable<Derived>::Writable() {
-  this->name_length = 0;
-  this->name = nullptr;
-}
+
+Writable::Writable() {}
 
 
 
-template<class Derived>
-Writable<Derived>::Writable(std::string name) {
-  this->name_length = name.length();
-  memcpy(this->name, name.c_str(), this->name_length * sizeof(uint8_t));
+Writable::Writable(std::string name) {
+  this->name = name;
 }
 
 
@@ -26,13 +21,8 @@ Writable<Derived>::Writable(std::string name) {
 /**
  * @brief set name to the writable object
  */
-template<class Derived>
-void Writable<Derived>::setName(std::string name) {
-  if (this->name != nullptr)
-    delete[] this->name;
-
-  this->name_length = name.length();
-  memcpy(this->name, name.c_str(), this->name_length * sizeof(uint8_t));
+void Writable::setName(std::string name) {
+  this->name = name;
 }
 
 
@@ -40,11 +30,7 @@ void Writable<Derived>::setName(std::string name) {
 /**
  * @brief delete name
  */
-template<class Derived>
-Writable<Derived>::~Writable() {
-  if (name != nullptr)
-    delete[] name;
-}
+Writable::~Writable() {}
 
 
 
@@ -55,8 +41,7 @@ Writable<Derived>::~Writable() {
 /**
  * @brief set data in buffer
  */
-template<class Derived>
-uint32_t Writable<Derived>::write(uint8_t* buff) {
+uint32_t Writable::write(uint8_t* buff) {
   size_t padding = this->writeHeader(buff);
   padding += this->writeData(buff + padding);
   return padding;
@@ -67,8 +52,7 @@ uint32_t Writable<Derived>::write(uint8_t* buff) {
 /**
  * @brief parse data from buffer
  */
-template<class Derived>
-uint32_t Writable<Derived>::read(uint8_t* buff) {
+uint32_t Writable::read(uint8_t* buff) {
   size_t padding = this->readHeader(buff);
   padding += this->readData(buff + padding);
   return padding;
@@ -79,17 +63,21 @@ uint32_t Writable<Derived>::read(uint8_t* buff) {
 /**
  * @brief write header in the buffer in writable format
  */
-template<class Derived>
-uint32_t Writable<Derived>::writeHeader(uint8_t* buff) {
+uint32_t Writable::writeHeader(uint8_t* buff) {
   size_t padding = 0;
-
+  uint8_t name_length = name.length();
   uint16_t code = this->code();
+
   memcpy(buff + padding, &code, sizeof(uint16_t));
   padding += sizeof(uint16_t);
+
+  // write name length
   memcpy(buff + padding, &name_length, sizeof(uint8_t));
   padding += sizeof(uint8_t);
-  memcpy(buff + padding, name, name_length * sizeof(uint8_t));
+  // write name
+  memcpy(buff + padding, name.c_str(), name_length * sizeof(uint8_t));
   padding += name_length * sizeof(uint8_t);
+  // write data length
   memcpy(buff + padding, &data_length, sizeof(uint32_t));
   padding += sizeof(uint32_t);
 
@@ -101,88 +89,28 @@ uint32_t Writable<Derived>::writeHeader(uint8_t* buff) {
 /**
  * @brief read header from the buffer in writable format
  */
-template<class Derived>
-uint32_t Writable<Derived>::readHeader(uint8_t* buff) {
+uint32_t Writable::readHeader(uint8_t* buff) {
   size_t padding = 0;
-
-  // write code
+  uint8_t name_length;
   uint16_t code;
+
   memcpy(&code, buff + padding, sizeof(uint16_t));
   if (code != this->code())
     throw std::invalid_argument("Wrong onject type.");
   padding += sizeof(uint16_t);
-  // write name length
+
+  // read name length
   memcpy(&name_length, buff + padding, sizeof(uint8_t));
   padding += sizeof(uint8_t);
-  // write name
-  memcpy(name, buff + padding, name_length * sizeof(uint8_t));
+
+  // read name
+  name.resize(name_length);
+  for (size_t i = 0; i < name.length(); ++i)
+    name[i] = buff[i + padding];
   padding += name_length * sizeof(uint8_t);
-  // write data length
+  // read data length
   memcpy(&data_length, buff + padding, sizeof(uint32_t));
   padding += sizeof(uint32_t);
 
   return padding;
-}
-
-
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                                              COPY
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
-/**
- * @brief copy funnction
- */
-template<class Derived>
-void Writable<Derived>::copy(const Derived& object) {
-  this->copyHeader(object);
-  this->copyData(object);
-}
-
-
-
-/**
- * @brief move funnction
- */
-template<class Derived>
-void Writable<Derived>::copy(Derived&& object) {
-  this->copyHeader(object);
-  this->copyData(object);
-}
-
-
-
-/**
- * @brief copy header function
- */
-template<class Derived>
-void Writable<Derived>::copyHeader(const Derived& object) {
-  static_assert(std::is_base_of<Writable<Derived>, Derived>::value, "Derived not derived from Writable.");
-
-  if (this->name != nullptr)
-    delete[] this->name;
-
-  this->name_length = object.name_length;
-  this->name = (uint8_t*) new uint8_t[this->name_length];
-
-  this->data_length = object.data_length;
-}
-
-/**
- * @brief move header function
- */
-template<class Derived>
-void Writable<Derived>::copyHeader(Derived&& object) {
-  static_assert(std::is_base_of<Writable<Derived>, Derived>::value, "Derived not derived from Writable.");
-
-  if (this->name != nullptr)
-    delete[] this->name;
-
-  this->name_length = object.name_length;
-  this->name = object.name;
-
-  object.name_length = 0;
-  object.name = nullptr;
-
-  this->data_length = object.data_length;
 }

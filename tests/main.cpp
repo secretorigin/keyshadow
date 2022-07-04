@@ -24,7 +24,7 @@ void letterByLetterOutput(std::string* str, int msec) {
 int main() {
   try {
     // here tests
-    
+    WritableArray_test();
     
     std::string str = "It's ok!)";
     letterByLetterOutput(&str, 200);

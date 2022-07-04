@@ -71,6 +71,7 @@
     "concepts": "cpp",
     "list": "cpp",
     "thread": "cpp",
-    "variant": "cpp"
+    "variant": "cpp",
+    "__functional_base_03": "cpp"
   }
 }

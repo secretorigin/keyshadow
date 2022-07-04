@@ -2,44 +2,15 @@
 // https://github.com/p2034
 
 
-
+#include <iostream>
 #include "writablearray.h"
+#include "factory.h"
 
 
 
 WritableArray::WritableArray() : Writable() {}
 
 WritableArray::WritableArray(std::string name) : Writable(name) {}
-
-
-
-/**
- * @brief add new element in array
- */
-template<class WritableType>
-void WritableArray::add(const WritableType& data) {
-  // check: is WritableType derived from Writable?
-  static_assert(std::is_base_of<Writable<WritableType>, WritableType>::value, "WritableType not derived from Writable.");
-
-  this->array.push_back(new WritableType());
-
-  this->array[this->array.size() - 1]->copy(data);
-}
-
-
-
-/**
- * @brief add new element in array
- */
-template<class WritableType>
-void WritableArray::add(WritableType&& data) {
-  // check: is WritableType derived from Writable?
-  static_assert(std::is_base_of<Writable<WritableType>, WritableType>::value, "WritableType not derived from Writable.");
-
-  array.push_back(new WritableType());
-
-  array[array.size() - 1]->copy(data);
-}
 
 
 
@@ -60,7 +31,7 @@ uint32_t WritableArray::size() {
   for (size_t i = 0; i < array.size(); ++i)
     data_length += array[i]->size();
 
-  return (7 + name_length + data_length);
+  return (9 + name.length() + data_length);
 }
 
 
@@ -72,13 +43,51 @@ WritableArray::~WritableArray() {
 
 
 
+/**
+ * @brief add new element in array
+ */
+void WritableArray::add(Writable* data) {
+  array.push_back(data);
+}
+
+
+
+/**
+ * @brief remove object by index
+ */
+void WritableArray::remove(size_t index) {
+  if (index >= this->array.size())
+    std::invalid_argument("Index out of range");
+
+  delete this->array[index];
+  this->array.erase(this->array.begin() + index);
+}
+
+
+
+/**
+ * @brief get element by index
+ */
+Writable* WritableArray::operator[] (size_t index) {
+  if (index >= this->array.size())
+    std::invalid_argument("Index out of range");
+
+  return this->array[index];
+}
+
+
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
                                               PARSE
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 uint32_t WritableArray::writeData(uint8_t* buff) {
   size_t padding = 0;
-  for (size_t i = 0; i < array.size(); ++i) {
+
+  uint16_t count = array.size();
+  memcpy(buff, &count, sizeof(uint16_t));
+  padding += sizeof(uint16_t);
+
+  for (size_t i = 0; i < count; ++i) {
     array[i]->write(buff + padding);
     padding += array[i]->size();
   }
@@ -90,57 +99,26 @@ uint32_t WritableArray::writeData(uint8_t* buff) {
 
 uint32_t WritableArray::readData(uint8_t* buff) {
   size_t padding = 0;
-  for (size_t i = 0; i < array.size(); ++i) {
-    array[i]->read(buff + padding);
-    padding += array[i]->size();
+  // clear old data
+  if (this->array.size() != 0) {
+    for(Writable* i : this->array)
+      delete i;
+    this->array.clear();
+  }
+
+  // parse
+  uint16_t count;
+  memcpy(&count, buff, sizeof(uint16_t));
+  padding += sizeof(uint16_t);
+  
+  this->array.resize(count);
+  for (size_t i = 0; i < count; ++i) {
+    uint16_t type;
+    memcpy(&type, buff + padding, sizeof(uint16_t));
+    this->array[i] = factory(type); // get new element from element's factory
+    this->array[i]->read(buff + padding);
+    padding += this->array[i]->size();
   }
 
   return padding;
-}
-
-
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                                              COPY
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
-/**
- * @brief get copy allocated with operator new
- */
-WritableArray* WritableArray::copy() {
-  WritableArray* copied = (WritableArray*) new WritableArray;
-  copied->copy(*this);
-  return copied;
-}
-
-
-
-// copy data function
-void WritableArray::copyData(const WritableArray& object) {
-  // clear ouir array
-  if (this->array.size() != 0) {
-    for(Writable* i : this->array)
-      delete i;
-    this->array.clear();
-  }
-
-  this->array.resize(object.array.size());
-  for (size_t i = 0; i < object.array.size(); ++i)
-    this->array[i] = object.array[i]->copy();
-}
-
-
-
-// move data function
-void WritableArray::copyData(WritableArray&& object) {
-  // clear ouir array
-  if (this->array.size() != 0) {
-    for(Writable* i : this->array)
-      delete i;
-    this->array.clear();
-  }
-
-  this->array.resize(object.array.size());
-  for (size_t i = 0; i < object.array.size(); ++i)
-    this->array[i] = object.array[i];
 }
