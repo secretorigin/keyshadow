@@ -7,8 +7,6 @@
 #include "../src/noteprocessor/writable.h"
 #include "../src/noteprocessor/writablearray.h"
 
-
-
 void WritableArray_test() {
   WritableArray a;
 

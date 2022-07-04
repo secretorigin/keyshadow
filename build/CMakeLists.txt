@@ -20,7 +20,8 @@ set(ENCPROCESSOR_FILES ../src/encprocessor/crypto/aes.cpp
                        ../src/encprocessor/core/encfile.cpp)
 
 # add your .cpp files here
-add_executable(test.out ${TEST_FILES} ${ENCPROCESSOR_FILES} ${NOTEPROCESSOR_FILES})
+# ${NOTEPROCESSOR_FILES}
+add_executable(test.out ${TEST_FILES} ${ENCPROCESSOR_FILES})
 
 target_include_directories(test.out PUBLIC ../src/encprocessor)
 
