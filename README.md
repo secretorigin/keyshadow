@@ -10,10 +10,10 @@
 - :star: [Encryption architecture development](https://github.com/p2034/encprocessor)
 - :star: [Special format encrypted file](https://github.com/p2034/encprocessor)
 - :star: Saving data architecture development
-- :new_moon: Saving logins and passwords
+- :star: Saving logins and passwords
 - Saving other notes
 - Saving images
-- Console client
+- :new_moon: Console client
 - GUI client (QT)
 
 
