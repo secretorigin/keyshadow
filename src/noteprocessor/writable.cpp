@@ -28,6 +28,15 @@ void Writable::setName(std::string name) {
 
 
 /**
+ * @brief get name of the writable object
+ */
+std::string Writable::getName() {
+  return name;
+}
+
+
+
+/**
  * @brief delete name
  */
 Writable::~Writable() {}

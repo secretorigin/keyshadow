@@ -27,11 +27,11 @@ uint16_t WritableArray::code() {
  * @brief size of this writable data
  */
 uint32_t WritableArray::size() {
-  data_length = 0;
+  data_length = COUNT_SIZE;
   for (size_t i = 0; i < array.size(); ++i)
     data_length += array[i]->size();
 
-  return (9 + name.length() + data_length);
+  return (HEADER_SIZE + name.length() + data_length);
 }
 
 
@@ -47,6 +47,9 @@ WritableArray::~WritableArray() {
  * @brief add new element in array
  */
 void WritableArray::add(Writable* data) {
+  if (array.size() == MAX_ARRAY_SIZE)
+    std::invalid_argument("Array already of max size: " + std::to_string(MAX_ARRAY_SIZE));
+
   array.push_back(data);
 }
 
@@ -61,6 +64,15 @@ void WritableArray::remove(size_t index) {
 
   delete this->array[index];
   this->array.erase(this->array.begin() + index);
+}
+
+
+
+/**
+ * @brief get count of elements in array
+ */
+uint16_t WritableArray::count() {
+  return this->array.size();
 }
 
 

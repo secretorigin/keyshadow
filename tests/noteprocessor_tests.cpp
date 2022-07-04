@@ -11,18 +11,15 @@
 
 
 void WritableArray_test() {
-  WritableArray a;
+  WritableArray a, b;
   a.setName("first");
-  a.add(new WritableArray("second"));
-  a.add(new WritableLoginNote("third", "login", "password"));
+  for (size_t i = 0; i < 10; ++i)
+    a.add(new WritableLoginNote("el " + std::to_string(i), "login", "password"));
+
   uint8_t* buff = new uint8_t[a.size()];
   a.write(buff);
+  b.read(buff);
 
-  for (size_t i = 0; i < a.size(); ++i)
-    if (('a' <= buff[i] && buff[i] <= 'z'))
-      std::cout << i << ": " << buff[i] << std::endl;
-    else
-      std::cout << i << ": " << "\\" << int(buff[i]) << "\\" << std::endl;
-
-  a.read(buff);
+  std::cout << b.count() << std::endl;
+  std::cout << b[9]->getName() << std::endl;
 }

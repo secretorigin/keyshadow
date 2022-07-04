@@ -39,6 +39,7 @@ public:
   virtual uint32_t size() = 0; // get full size of writed data
 
   void setName(std::string name);
+  std::string getName();
   
   uint32_t write(uint8_t* buff);
   uint32_t read(uint8_t* buff);

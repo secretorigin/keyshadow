@@ -44,6 +44,7 @@ public:
   // WritableArray methods
   void add(Writable* object);
   void remove(size_t index);
+  uint16_t count();
   Writable* operator[] (size_t index);
 };
 

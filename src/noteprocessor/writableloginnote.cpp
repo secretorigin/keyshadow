@@ -13,6 +13,11 @@ WritableLoginNote::WritableLoginNote() : Writable() {}
 WritableLoginNote::WritableLoginNote(std::string name) : Writable(name) {}
 
 WritableLoginNote::WritableLoginNote(std::string name, std::string login, std::string password) : Writable(name) {
+  if (MAX_LOGIN_SIZE < login.length())
+    std::invalid_argument("Login can be up to " + std::to_string(MAX_LOGIN_SIZE));
+  if (MAX_PASSWORD_SIZE < password.length())
+    std::invalid_argument("Password can be up to " + std::to_string(MAX_PASSWORD_SIZE));
+  
   this->login = login;
   this->password = password;
 }
@@ -33,7 +38,7 @@ uint16_t WritableLoginNote::code() {
  */
 uint32_t WritableLoginNote::size() {
   data_length = 4 + login.length() + password.length();
-  return (7 + name.length() + data_length);
+  return (HEADER_SIZE + name.length() + data_length);
 }
 
 
@@ -43,12 +48,18 @@ WritableLoginNote::~WritableLoginNote() {}
 
 
 void WritableLoginNote::setLogin(std::string login) {
+  if (MAX_LOGIN_SIZE < login.length())
+    std::invalid_argument("Login can be up to " + std::to_string(MAX_LOGIN_SIZE));
+
   this->login = login;
 }
 
 
 
 void WritableLoginNote::setPassword(std::string password) {
+  if (MAX_PASSWORD_SIZE < password.length())
+    std::invalid_argument("Password can be up to " + std::to_string(MAX_PASSWORD_SIZE));
+    
   this->password = password;
 }
 
