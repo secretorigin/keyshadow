@@ -8,8 +8,7 @@
 #include <thread>
 #include <stdexcept>
 
-#include "encprocessor_tests.cpp"
-#include "noteprocessor_tests.cpp"
+#include "../src/keyshadow/mainloop.h"
 
 
 void letterByLetterOutput(std::string* str, int msec) {
@@ -24,7 +23,7 @@ void letterByLetterOutput(std::string* str, int msec) {
 int main() {
   try {
     // here tests
-    WritableArray_test();
+    mainloop();
     
     std::string str = "It's ok!)";
     letterByLetterOutput(&str, 200);

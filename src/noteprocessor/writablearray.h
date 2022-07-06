@@ -45,6 +45,8 @@ public:
   void add(Writable* object);
   void remove(size_t index);
   uint16_t count();
+  
+  // do not delete this objects !!!
   Writable* operator[] (size_t index);
 };
 

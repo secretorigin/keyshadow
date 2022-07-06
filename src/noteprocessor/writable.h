@@ -41,8 +41,8 @@ public:
   void setName(std::string name);
   std::string getName();
   
-  uint32_t write(uint8_t* buff);
-  uint32_t read(uint8_t* buff);
+  uint32_t write(uint8_t* buff); //<- write data in buffer
+  uint32_t read(uint8_t* buff); //<- read data from buffer
 
   virtual ~Writable();
 };
