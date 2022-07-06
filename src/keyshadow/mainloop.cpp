@@ -69,6 +69,8 @@ public:
           reinterpret_cast<WritableLoginNote*>(array[i])->getPassword()
         ));
     }
+
+    return info:
   }
 
   // file
