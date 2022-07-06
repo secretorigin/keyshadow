@@ -46,8 +46,12 @@ private:
 
 public:
   KeyshadowFile() : array("keyshadow_database") {}
-  KeyshadowFile(std::string path) {
+  KeyshadowFile(std::string path) : array("keyshadow_database") {
     this->path = path;
+  }
+
+  void setPassword(std::string password) {
+    getKey(password);
   }
 
   void setPath(std::string path) {
@@ -83,7 +87,7 @@ public:
 
     this->array.read(data);
     if (array.getName() != "keyshadow_database")
-      throw std::invalid_argument("Thsi is not keyshadow database");
+      throw std::invalid_argument("This is not keyshadow database");
 
     delete[] data;
   }
@@ -106,5 +110,28 @@ public:
 
 
 void mainloop() {
-  std::cout << "mainloop" << std::endl;
+  // creating database
+
+  // KeyshadowFile f("testdata");
+  // f.setPassword("password12345");
+  // f.addLoginInfo("www.googl.com", "admin", "iamthebestadmin");
+  // f.write();
+
+  // reading
+
+  KeyshadowFile f("testdata");
+  f.read("password12345");
+  f.addLoginInfo("www.google.com", "admin2", "iamthebestadmin12345");
+
+  logininfo_t* findeddata = f.find("www.googl.com");
+
+  for (size_t i = 0; i < findeddata->size(); ++i)
+    std::cout << (*findeddata)[i].first << " " << (*findeddata)[i].second << std::endl;
+
+  delete findeddata;
+
+  findeddata = f.find("www.google.com");
+
+  for (size_t i = 0; i < findeddata->size(); ++i)
+    std::cout << (*findeddata)[i].first << " " << (*findeddata)[i].second << std::endl;
 }

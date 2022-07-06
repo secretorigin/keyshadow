@@ -2,7 +2,6 @@
 // https://github.com/p2034
 
 
-#include <iostream>
 #include "writablearray.h"
 #include "factory.h"
 
