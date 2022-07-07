@@ -1,3 +1,8 @@
+// Copyright (c) 2022 Kandakov Danil (p2034 or the_lll_end)
+// https://github.com/p2034
+
+
+
 #include "keyshadow.h"
 
 
@@ -11,13 +16,12 @@ void KeyshadowFile::getKey(std::string password) {
 
   // generate key from password
   // this must be created using sha256 and pbkdf2
-  for (size_t i = 0; i < keySize; ++i) {
+  for (size_t i = 0; i < keySize; ++i)
     if (password.length() <= i) {
       key[i] = '0';
     } else {
       key[i] = password[i];
     }
-  }
 }
 
 

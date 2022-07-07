@@ -36,6 +36,8 @@ public:
   uint32_t size(); // get full size of writed data
 
   using Writable::setName;
+  using Writable::write;
+  using Writable::read;
 
   ~WritableArray();
 

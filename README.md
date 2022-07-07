@@ -42,5 +42,6 @@
 
 <h1>:flying_saucer: Problems</h1>
 
-- When we call write() on WritableArray it use writeHeader() from Writable and does not see code() implementation. [source](https://github.com/p2034/keyshadow/blob/main/src/noteprocessor/writablearray.cpp)
-- I need to set up OpenSSL functions for encryption, because I am not sure about currently used realisations. [source](https://github.com/p2034/keyshadow/blob/main/src/encprocessor/core/encdata.cpp)
+1. :white_check_mark: When we call write() on WritableArray it use writeHeader() from Writable and does not see code() implementation. [source](https://github.com/p2034/keyshadow/blob/main/src/noteprocessor/writablearray.cpp)
+  - Solved: problem was related to the destructor in WritableArray::readData() function, WritableArray lose it's class type and became Writable after this destructor, strange.
+2. :construction: I need to set up OpenSSL functions for encryption, because I am not sure about currently used realisations. [source](https://github.com/p2034/keyshadow/blob/main/src/encprocessor/core/encdata.cpp)

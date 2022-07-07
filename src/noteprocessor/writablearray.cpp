@@ -107,8 +107,6 @@ uint32_t WritableArray::writeData(uint8_t* buff) {
 
 
 uint32_t WritableArray::readData(uint8_t* buff) {
-  this->~WritableArray();
-
   size_t padding = 0;
   // clear old data
   if (this->array.size() != 0) {

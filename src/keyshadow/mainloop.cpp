@@ -86,6 +86,7 @@ int main(int argc, char* argv[]) {
     } else {
       throw std::invalid_argument("Unknown parameters.");
     }
+
   } catch(const std::exception& e) {
     std::cout << e.what() << "\n";
   }

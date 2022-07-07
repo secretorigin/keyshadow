@@ -99,6 +99,12 @@ uint32_t Writable::writeHeader(uint8_t* buff) {
  * @brief read header from the buffer in writable format
  */
 uint32_t Writable::readHeader(uint8_t* buff) {
+  /*
+    One day I deside to place here destructor
+    Destructor makes this objet Writable, not WritableArray
+    Wtf? how it works
+  */
+
   size_t padding = 0;
   uint8_t name_length;
   uint16_t code;
