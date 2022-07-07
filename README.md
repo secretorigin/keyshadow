@@ -27,7 +27,7 @@
 - Saving images
 - :star: Console client
 - :full_moon: Adding normal key-creation with SHA256, HMAC and PBKDF2
-- Transition to functions from openssl
+- Transition to functions from OpenSSL
 - :new_moon_with_face: GUI client (QT)
 
 <h2>:page_facing_up: File structure:</h2>
@@ -77,19 +77,19 @@ make
 - Run to use the programm with database which you already have on the computer:
 
 ```bash
-./keyshadow < path to the database > < password >
+./keyshadow <path to the database> <password>
 ```
 
 - Run to create new database and use the programm:
 
 ```bash
-./keyshadow -create < path to the database > < password >
+./keyshadow -create <path to the database> <password>
 ```
 
 - Run for help:
 
 ```bash
-./keyshadow -help >
+./keyshadow -help
 ```
 
 <h2>Example</h2>
@@ -97,7 +97,7 @@ make
 <p>Console example of using this program:</p>
 
 ```
-build$ ./test.out -create newdb Lol12345
+build$ ./keyshadow -create newdb Lol12345
 > add
 > Resource: resource_name_1
 > Login: login_1
@@ -120,7 +120,7 @@ Data was added.
 File was saved.
 > exit 
 ...the end.
-build$ ./test.out newdb Lol12345
+build$ ./keyshadow newdb Lol12345
 > list
 > All data:
 > Login-Password resource_name_1
