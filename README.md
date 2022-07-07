@@ -18,14 +18,14 @@
 
 <h1>:page_facing_up: File structure:</h1>
 
-- I use note format from (noteprocessor)[https://github.com/p2034/keyshadow/blob/main/src/noteprocessor/writable.h]:
+- I use note format from [noteprocessor](https://github.com/p2034/keyshadow/blob/main/src/noteprocessor/writable.h):
 
 ```
  *    < Code > | < Name Length > |       < Name >      | < Data Length > |      < Data >
  *    2 bytes  |    1 bytes      | "Name Length" bytes |     4 bytes     | "Data Length" bytes
 ```
 
-- This format is wrapped by encypet file format from (encprocessor)[https://github.com/p2034/keyshadow/blob/main/src/encprocessor/core/encformat.h]:
+- This format is wrapped by encypet file format from [encprocessor](https://github.com/p2034/keyshadow/blob/main/src/encprocessor/core/encformat.h):
 
 ```
  *           < HEADER >                   < ENCRYPTED DATA >                  < TAIL >
@@ -42,5 +42,5 @@
 
 <h1>:flying_saucer: Problems</h1>
 
-- When we call write() on WritableArray it use writeHeader() from Writable (noteprocessor)[https://github.com/p2034/keyshadow/blob/main/src/noteprocessor/writablearray.cpp]
-- I need to set up OpenSSL functions for encryption, because I am not sure about currently used realisations. [https://github.com/p2034/keyshadow/blob/main/src/encprocessor/core/encdata.cpp]
+- When we call write() on WritableArray it use writeHeader() from Writable and does not see code() implementation. [source](https://github.com/p2034/keyshadow/blob/main/src/noteprocessor/writablearray.cpp)
+- I need to set up OpenSSL functions for encryption, because I am not sure about currently used realisations. [source](https://github.com/p2034/keyshadow/blob/main/src/encprocessor/core/encdata.cpp)
