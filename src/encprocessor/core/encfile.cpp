@@ -18,8 +18,6 @@
 #include "core/encdata.h"
 #include "core/encfile.h"
 
-#include "../../fortest/functions.h" // for testing
-
 /**
  * @brief init chipher
  */
@@ -54,8 +52,6 @@ uint32_t encfile::decrypt(std::string fileName, const uint8_t* key, uint8_t** da
     dataSize = datastream_->decrypt(&file, key, data);
   } file.close();
 
-  printArray(*data, dataSize); // for testing
-
   return dataSize; 
 }
 
@@ -77,8 +73,6 @@ uint32_t encfile::decrypt(std::string fileName, const uint8_t* key, uint8_t** da
 void encfile::encrypt(std::string fileName, const uint8_t* key,
                       const uint8_t* data, uint32_t dataSize) {
   std::ofstream file; ///< std::ostream for decdata::decrypt()
-
-  printArray(data, dataSize); // for testing
 
   // write data in file
   file.open(fileName); {

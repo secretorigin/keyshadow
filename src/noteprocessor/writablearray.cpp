@@ -11,6 +11,11 @@ WritableArray::WritableArray() : Writable() {}
 
 WritableArray::WritableArray(std::string name) : Writable(name) {}
 
+WritableArray::~WritableArray() {
+  for (Writable* i : this->array)
+    delete i;
+}
+
 
 
 /**
@@ -31,13 +36,6 @@ uint32_t WritableArray::size() {
     data_length += array[i]->size();
 
   return (HEADER_SIZE + name.length() + data_length);
-}
-
-
-
-WritableArray::~WritableArray() {
-  for (Writable* i : this->array)
-    delete i;
 }
 
 
@@ -109,6 +107,8 @@ uint32_t WritableArray::writeData(uint8_t* buff) {
 
 
 uint32_t WritableArray::readData(uint8_t* buff) {
+  this->~WritableArray();
+
   size_t padding = 0;
   // clear old data
   if (this->array.size() != 0) {

@@ -1,4 +1,4 @@
-<h1>KEYSHADOW</h1>
+<h1>:key: KEYSHADOW</h1>
 
 <p>It's simple password manager with 2 my libraries:</p>
 
@@ -11,21 +11,21 @@
 - :star: [Special format encrypted file](https://github.com/p2034/encprocessor)
 - :star: Saving data architecture development
 - :star: Saving logins and passwords
-- Saving other notes
+- Saving other note types
 - Saving images
-- :new_moon: Console client
-- GUI client (QT)
+- :full_moon: Console client
+- :new_moon_with_face: GUI client (QT)
 
-<h1>File structure:</h1>
+<h1>:page_facing_up: File structure:</h1>
 
-<p>I use note format from (noteprocessor)[https://github.com/p2034/keyshadow/blob/main/src/noteprocessor/writable.h]:</p>
+- I use note format from (noteprocessor)[https://github.com/p2034/keyshadow/blob/main/src/noteprocessor/writable.h]:
 
 ```
  *    < Code > | < Name Length > |       < Name >      | < Data Length > |      < Data >
  *    2 bytes  |    1 bytes      | "Name Length" bytes |     4 bytes     | "Data Length" bytes
 ```
 
-<p>This format is wrapped by encypet file format from (encprocessor)[https://github.com/p2034/keyshadow/blob/main/src/encprocessor/core/encformat.h]</p>
+- This format is wrapped by encypet file format from (encprocessor)[https://github.com/p2034/keyshadow/blob/main/src/encprocessor/core/encformat.h]:
 
 ```
  *           < HEADER >                   < ENCRYPTED DATA >                  < TAIL >
@@ -41,3 +41,6 @@
 ```
 
 <h1>:flying_saucer: Problems</h1>
+
+- When we call write() on WritableArray it use writeHeader() from Writable (noteprocessor)[https://github.com/p2034/keyshadow/blob/main/src/noteprocessor/writablearray.cpp]
+- I need to set up OpenSSL functions for encryption, because I am not sure about currently used realisations. [https://github.com/p2034/keyshadow/blob/main/src/encprocessor/core/encdata.cpp]

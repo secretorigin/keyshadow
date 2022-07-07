@@ -8,7 +8,6 @@
 #include <thread>
 #include <stdexcept>
 
-#include "../src/keyshadow/mainloop.h"
 
 
 void letterByLetterOutput(std::string* str, int msec) {
@@ -23,7 +22,6 @@ void letterByLetterOutput(std::string* str, int msec) {
 int main() {
   try {
     // here tests
-    mainloop();
     
     std::string str = "It's ok!)";
     letterByLetterOutput(&str, 200);

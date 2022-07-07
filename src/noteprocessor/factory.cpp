@@ -15,7 +15,8 @@ Writable* factory(uint16_t code) {
   else if (code == NOTE_WRITABLELOGINNOTE_CODE)
     object = (WritableLoginNote*) new WritableLoginNote;
   else
-    throw std::invalid_argument("Unknown object type.");
+    throw std::invalid_argument("Unknown type of note (" + std::to_string(code) + ")\n" + 
+                                "Update your application, or contact developers.");
 
   return object;
 }
