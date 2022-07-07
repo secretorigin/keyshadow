@@ -10,7 +10,7 @@
 
 
 
-#include "../src/keyshadow/keyshadow.h"
+#include "../src/keyshadow/core/keyshadow.h"
 
 
 

@@ -5,6 +5,8 @@
 
 #include "keyshadow.h"
 
+#define PADDING_SYMBOLS "> "
+
 
 
 void mainloop(std::string path, std::string password, bool exist) {
@@ -16,59 +18,69 @@ void mainloop(std::string path, std::string password, bool exist) {
 
   std::string command;
   while(true) {
+    std::cout << PADDING_SYMBOLS;
     std::cin >> command;
 
     if (command == "add") {
       std::string login, password;
-      std::cout << "Resource: ";
+      std::cout << PADDING_SYMBOLS << "Resource: ";
       std::cin >> command;
-      std::cout << "Login: ";
+      std::cout << PADDING_SYMBOLS << "Login: ";
       std::cin >> login;
-      std::cout << "Password: ";
+      std::cout << PADDING_SYMBOLS << "Password: ";
       std::cin >> password;
       file.addLoginInfo(command, login, password);
+      std::cout << "Data was added." << std::endl;
+      continue;
     }
 
     if (command == "remove") {
       size_t index;
-      std::cout << "Resource: ";
+      std::cout << PADDING_SYMBOLS << "Resource: ";
       std::cin >> command;
-      std::cout << "Index: ";
+      std::cout << PADDING_SYMBOLS << "Index: ";
       std::cin >> index;
       file.removeNote(command, index);
+      std::cout << "Data was removed." << std::endl;
+      continue;
     }
 
     if (command == "find") {
-      std::cout << "Resource: ";
+      std::cout << PADDING_SYMBOLS << "Resource: ";
       std::cin >> command;
       login_password_t* findeddata = file.findLoginPassword(command);
-      std::cout << "Found:\n";
+      std::cout << PADDING_SYMBOLS << "Found:\n";
       for (size_t i = 0; i < findeddata->size(); ++i)
-        std::cout << (*findeddata)[i].first << " " << (*findeddata)[i].second << std::endl;
+        std::cout << PADDING_SYMBOLS << (*findeddata)[i].first << " " << (*findeddata)[i].second << std::endl;
       delete findeddata;
+      continue;
     }
 
     if (command == "change password") {
-      std::cout << "New password: ";
+      std::cout << PADDING_SYMBOLS << "New password: ";
       std::cin >> command;
       file.setPassword(command);
+      std::cout << "Password was changed." << std::endl;
+      continue;
     }
     
     if (command == "list") {
       type_resource_t* alldata = file.list();
-      std::cout << "All data:\n";
+      std::cout << PADDING_SYMBOLS << "All data:\n";
       for (size_t i = 0; i < alldata->size(); ++i)
-        std::cout << (*alldata)[i].first << " " << (*alldata)[i].second << std::endl;
+        std::cout << PADDING_SYMBOLS << (*alldata)[i].first << " " << (*alldata)[i].second << std::endl;
       delete alldata;
       continue;
     }
 
     if (command == "save") {
       file.write();
+      std::cout << "File was saved." << std::endl;
       continue;
     }
 
     if (command == "exit")
+      std::cout << "...the end." << std::endl;
       break;
   }
 }
@@ -77,15 +89,14 @@ void mainloop(std::string path, std::string password, bool exist) {
 
 int main(int argc, char* argv[]) {
   try {
-    if (argc == 3) {
-      std::cout << "Open" << std::endl;
+    if (argc == 3)
       mainloop(argv[1], argv[2], true);
-    } else if (argc == 4 && argv[1] == "-create") { // here is the problem
-      std::cout << "Create" << std::endl;
-      mainloop(argv[1], argv[2], false);
-    } else {
+    else if (argc == 4 && std::string(argv[1]) == "-create")
+      mainloop(argv[2], argv[3], false);
+    else if (argc == 2 && std::string(argv[1]) == "-help")
+      std::cout << "Description: ...\n"; // we need to add description
+    else
       throw std::invalid_argument("Unknown parameters.");
-    }
 
   } catch(const std::exception& e) {
     std::cout << e.what() << "\n";

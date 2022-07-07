@@ -22,7 +22,12 @@
 using login_password_t = std::vector<std::pair<std::string, std::string>>;
 using type_resource_t = std::vector<std::pair<std::string, std::string>>;
 
-    
+
+
+/**
+ * @class KeyshadowFile
+ * @brief a class that combines encprocessor and noteprocessor
+ */
 class KeyshadowFile {
 private:
   WritableArray array;

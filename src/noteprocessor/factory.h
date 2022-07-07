@@ -25,6 +25,7 @@
 
 
 
+// factory for Writable objects, generate object with it's code
 Writable* factory(uint16_t code);
 
 

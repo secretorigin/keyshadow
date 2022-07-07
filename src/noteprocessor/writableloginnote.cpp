@@ -47,6 +47,11 @@ WritableLoginNote::~WritableLoginNote() {}
 
 
 
+/**
+ * @brief set login in note
+ * 
+ * @param [in] login one of the note parameters
+ */
 void WritableLoginNote::setLogin(std::string login) {
   if (MAX_LOGIN_SIZE < login.length())
     std::invalid_argument("Login can be up to " + std::to_string(MAX_LOGIN_SIZE));
@@ -56,6 +61,11 @@ void WritableLoginNote::setLogin(std::string login) {
 
 
 
+/**
+ * @brief set password in note
+ * 
+ * @param [in] password one of the note parameters
+ */
 void WritableLoginNote::setPassword(std::string password) {
   if (MAX_PASSWORD_SIZE < password.length())
     std::invalid_argument("Password can be up to " + std::to_string(MAX_PASSWORD_SIZE));
@@ -64,13 +74,22 @@ void WritableLoginNote::setPassword(std::string password) {
 }
 
 
-
+/**
+ * @brief get login from note
+ * 
+ * @return login
+ */
 std::string WritableLoginNote::getLogin() {
   return login;
 }
 
 
 
+/**
+ * @brief get password from note
+ * 
+ * @return password
+ */
 std::string WritableLoginNote::getPassword() {
   return password;
 }
@@ -81,6 +100,7 @@ std::string WritableLoginNote::getPassword() {
                                               PARSE
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+// virtual function for writing data after header in buffer
 uint32_t WritableLoginNote::writeData(uint8_t* buff) {
   size_t padding = 0;
   uint16_t size;
@@ -104,6 +124,7 @@ uint32_t WritableLoginNote::writeData(uint8_t* buff) {
 
 
 
+// virtual function for reading data after header from buffer
 uint32_t WritableLoginNote::readData(uint8_t* buff) {
   size_t padding = 0;
   uint16_t size;

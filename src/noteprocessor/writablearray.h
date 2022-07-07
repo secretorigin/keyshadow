@@ -15,11 +15,12 @@
 
 /**
  * @class WritableArray
- * @brief abstarct class for array of writable data
+ * @brief class for array of writable data
  * 
  * @code
- *                          < Count >           |          < Objects >
- *                           2 bytes            |         unknown bytes
+ * Data of this Writable implementation (also of course there is a header):
+ *                < Count >           |          < Objects >
+ *                 2 bytes            |         unknown bytes
  */
 class WritableArray : public Writable {
 protected:

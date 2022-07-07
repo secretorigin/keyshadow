@@ -34,10 +34,20 @@ KeyshadowFile::KeyshadowFile(std::string path) : array("keyshadow_database") {
 
 
 
+/**
+ * @brief set new key to the keyshadow file
+ * 
+ * @param [in] password your new password
+ */
 void KeyshadowFile::setPassword(std::string password) {
   getKey(password);
 }
 
+/**
+ * @brief set path to the database
+ * 
+ * @param [in] path path to the database
+ */
 void KeyshadowFile::setPath(std::string path) {
   this->path = path;
 }
@@ -61,6 +71,12 @@ void KeyshadowFile::addLoginInfo(std::string resource, std::string login, std::s
 
 
 
+/**
+ * @brief remove (index) note with name 'resource' from database
+ * 
+ * @param [in] resource name of the note
+ * @param [in] index index of this note in find request output
+ */
 void KeyshadowFile::removeNote(std::string resource, size_t index) {
   size_t current_index = 0;
 

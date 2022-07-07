@@ -12,8 +12,8 @@ project(KEYSHADOW)
 
 set(TEST_FILES ../tests/main.cpp)
 
-set(KEYSHADOW_FILES ../src/keyshadow/mainloop.cpp
-                    ../src/keyshadow/keyshadow.cpp)
+set(KEYSHADOW_FILES ../src/keyshadow/core/mainloop.cpp
+                    ../src/keyshadow/core/keyshadow.cpp)
 
 set(NOTEPROCESSOR_FILES ../src/noteprocessor/writable.cpp
                         ../src/noteprocessor/writablearray.cpp
@@ -25,10 +25,10 @@ set(ENCPROCESSOR_FILES ../src/encprocessor/crypto/aes.cpp
                        ../src/encprocessor/core/encfile.cpp)
 
 # add your .cpp files here
-add_executable(test.out ${KEYSHADOW_FILES} 
+add_executable(keyshadow ${KEYSHADOW_FILES}
                         ${ENCPROCESSOR_FILES} 
                         ${NOTEPROCESSOR_FILES})
 
-target_include_directories(test.out PUBLIC ../src/encprocessor)
+target_include_directories(keyshadow PUBLIC ../src/encprocessor)
 
-target_link_libraries(test.out)
+target_link_libraries(keyshadow)

@@ -89,6 +89,7 @@ Writable* WritableArray::operator[] (size_t index) {
                                               PARSE
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+// virtual function for writing data after header in buffer
 uint32_t WritableArray::writeData(uint8_t* buff) {
   size_t padding = 0;
 
@@ -106,6 +107,7 @@ uint32_t WritableArray::writeData(uint8_t* buff) {
 
 
 
+// virtual function for reading data after header from buffer
 uint32_t WritableArray::readData(uint8_t* buff) {
   size_t padding = 0;
   // clear old data
